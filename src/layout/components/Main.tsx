@@ -1,7 +1,5 @@
-import React, { useMemo, type ReactNode } from 'react'
-
-import { useLocation } from 'react-router-dom'
-import { firstCharacterUpperCase } from '@/utils'
+import React, { type ReactNode } from 'react'
+import { Layout } from 'antd'
 
 interface Props {
   style?: React.CSSProperties | undefined
@@ -9,26 +7,18 @@ interface Props {
   children?: ReactNode
 }
 
+const { Content } = Layout
+
 const Main: React.FC<Props> = ({ children, style, className = '' }) => {
-  const { pathname } = useLocation()
-
-  const title = useMemo(() => {
-    const list = pathname.split('/').pop()?.split('-')
-
-    return list?.map(firstCharacterUpperCase).join(' ')
-  }, [pathname])
-
   return (
-    <main
+    <Content
       style={style}
       className={`flex text-black items-center justify-start flex-col pl-4 pb-4 pr-8 overflow-auto ${
         className ?? ''
       }`}
     >
-      <div className="w-full p-20px text-20px font-700">{title}</div>
-
       {children}
-    </main>
+    </Content>
   )
 }
 

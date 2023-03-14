@@ -6,7 +6,7 @@ import react from '@vitejs/plugin-react'
 import WindiCSS from 'vite-plugin-windicss'
 import visualizer from 'rollup-plugin-visualizer'
 import viteCompression from 'vite-plugin-compression'
-
+import svgLoader from '@andylacko/vite-svg-react-loader'
 import type { ConfigEnv } from 'vite'
 
 interface ENV {
@@ -31,7 +31,7 @@ const getEnv = (mode: string) => {
  * https://vitejs.dev/config/
  */
 const baseConfig = {
-  plugins: [react(), WindiCSS(), viteCompression()],
+  plugins: [react(), WindiCSS(), viteCompression(), svgLoader()],
   resolve: {
     alias: [
       {

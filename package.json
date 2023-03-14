@@ -46,6 +46,7 @@
     "styled-components": "^5.3.6"
   },
   "devDependencies": {
+    "@andylacko/vite-svg-react-loader": "^3.0.4",
     "@types/node": "^18.14.2",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",

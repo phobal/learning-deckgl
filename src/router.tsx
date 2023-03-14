@@ -16,11 +16,13 @@ const GenRoute: React.FC<Route> = (route) => {
 
 const Layout = lazy(() => import('@/layout'))
 const RegistrantList = lazy(() => import('@/views/RegistrantList'))
+const DataPage = lazy(() => import('@/views/DataPage'))
+const MapPage = lazy(() => import('@/views/MapPage'))
 
 const routes: Route[] = [
   {
     path: '/',
-    element: <Navigate replace to={'/map/show'} />,
+    element: <Navigate replace to={'/map/map'} />,
     children: [],
   },
   {
@@ -32,10 +34,19 @@ const routes: Route[] = [
     ),
     children: [
       {
-        path: '/map/show',
+        path: '/map/data',
         element: (
           <Suspense fallback={<Loading />}>
-            <RegistrantList />
+            <DataPage />
+          </Suspense>
+        ),
+        children: [],
+      },
+      {
+        path: '/map/map',
+        element: (
+          <Suspense fallback={<Loading />}>
+            <MapPage />
           </Suspense>
         ),
         children: [],
