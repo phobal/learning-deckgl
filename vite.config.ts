@@ -35,7 +35,7 @@ const baseConfig = {
   resolve: {
     alias: [
       {
-        find: '/@',
+        find: '@',
         replacement: resolve(__dirname, './src'),
       },
     ],
