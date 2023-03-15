@@ -18,7 +18,7 @@ const Header = (props: Props) => {
       <div className="flex justify-center items-center h-48px">
         <Link
           className={`flex justify-center items-center w-65px h-30px ml-8px cursor-pointer rounded-md text-[#c2c7cf] hover:text-white ${
-            isDataPage ? 'bg-[#424d61]' : ''
+            isDataPage ? 'bg-[#424d61] text-white' : ''
           }`}
           to="/map/data"
         >
@@ -27,7 +27,7 @@ const Header = (props: Props) => {
         </Link>
         <Link
           className={`flex justify-center items-center w-65px h-30px ml-8px cursor-pointer rounded-md text-[#c2c7cf] hover:text-white ${
-            isMapPage ? 'bg-[#424d61]' : ''
+            isMapPage ? 'bg-[#424d61] text-white' : ''
           }`}
           to="/map/map"
         >
