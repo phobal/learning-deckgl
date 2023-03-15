@@ -9,7 +9,6 @@ declare global {
    * To do this, you can create an env.d.ts file in the src directory
    * Then add the definition of ImportMetaEnv as follows:
    */
-
   interface ImportMetaEnv {
     VITE_APP_NODE_ENV: string
     VITE_APP_TITLE: string
@@ -22,5 +21,7 @@ declare global {
     children: Route[]
   }
 }
+
+export declare const MapboxAccessToken: string
 
 export {}

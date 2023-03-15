@@ -54,7 +54,7 @@ export default ({ command, mode }: ConfigEnv) => {
    * import.meta.env.DEV: {boolean}     app 是否 runtime 在开发环境 (永远与 import.meta.env.PROD 相反).
    */
 
-  const { VITE_APP_NODE_ENV, VITE_APP_TITLE } = getEnv(mode)
+  const { VITE_APP_NODE_ENV, VITE_APP_TITLE, MAPBOX_ACCESS_TOKEN } = getEnv(mode)
 
   setTimeout(() => {
     console.log()
@@ -64,7 +64,12 @@ export default ({ command, mode }: ConfigEnv) => {
   }, 66)
 
   if (command === 'serve') {
-    return defineConfig({ ...baseConfig })
+    return defineConfig({
+      ...baseConfig,
+      define: {
+        MapboxAccessToken: JSON.stringify(MAPBOX_ACCESS_TOKEN),
+      },
+    })
   } else {
     return defineConfig({
       ...baseConfig,
@@ -72,6 +77,9 @@ export default ({ command, mode }: ConfigEnv) => {
         rollupOptions: {
           plugins: [visualizer()],
         },
+      },
+      define: {
+        MapboxAccessToken: JSON.stringify(MAPBOX_ACCESS_TOKEN),
       },
     })
   }

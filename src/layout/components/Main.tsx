@@ -13,7 +13,7 @@ const Main: React.FC<Props> = ({ children, style, className = '' }) => {
   return (
     <Content
       style={style}
-      className={`flex text-black items-center justify-start flex-col pl-4 pb-4 pr-8 overflow-auto ${
+      className={`flex text-black items-center justify-start flex-col pl-4px pb-4px pr-4px overflow-auto relative ${
         className ?? ''
       }`}
     >
