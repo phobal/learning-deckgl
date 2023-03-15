@@ -7,6 +7,7 @@ dependencies:
   antd: 5.3.1_react-dom@18.2.0+react@18.2.0
   dayjs: 1.11.7
   history: 5.3.0
+  lodash: 4.17.21
   mapbox-gl: 2.13.0
   postcss: 8.4.21
   react: 18.2.0
@@ -19,6 +20,7 @@ dependencies:
   styled-components: 5.3.9_fa3acc110621e003f368ed3f60914608
 devDependencies:
   '@andylacko/vite-svg-react-loader': 3.0.4_vite@4.1.4
+  '@types/lodash': 4.14.191
   '@types/node': 18.15.3
   '@types/react': 18.0.28
   '@types/react-dom': 18.0.11
@@ -1313,6 +1315,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==
+  /@types/lodash/4.14.191:
+    dev: true
+    resolution:
+      integrity: sha512-BdZ5BCCvho3EIXw6wUCXHe7rS53AIDPLE+JzwgT+OsJk53oBfbSmZZ7CX4VaRoN78N+TJpFi9QPlfIVNmJYWxQ==
   /@types/mapbox-gl/2.7.10:
     dependencies:
       '@types/geojson': 7946.0.10
@@ -4986,6 +4992,7 @@ specifiers:
   '@deck.gl/layers': ^8.9.2
   '@deck.gl/react': ^8.9.2
   '@reduxjs/toolkit': ^1.9.3
+  '@types/lodash': ^4.14.191
   '@types/node': ^18.14.2
   '@types/react': ^18.0.28
   '@types/react-dom': ^18.0.11
@@ -5005,6 +5012,7 @@ specifiers:
   history: ^5.3.0
   husky: ^8.0.3
   lint-staged: ^13.1.2
+  lodash: ^4.17.21
   mapbox-gl: ^2.13.0
   postcss: ^8.4.21
   prettier: ^2.8.4
