@@ -15,7 +15,6 @@ const GenRoute: React.FC<Route> = (route) => {
 }
 
 const Layout = lazy(() => import('@/layout'))
-const RegistrantList = lazy(() => import('@/views/RegistrantList'))
 const DataPage = lazy(() => import('@/views/DataPage'))
 const MapPage = lazy(() => import('@/views/MapPage'))
 
