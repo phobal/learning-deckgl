@@ -2,7 +2,7 @@ import React from 'react'
 
 type Props = {}
 
-const DataPage = (props: Props) => {
+const DataPage = ({}: Props) => {
   return <div>DataPage</div>
 }
 

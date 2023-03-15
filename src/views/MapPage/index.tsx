@@ -11,8 +11,8 @@ type Props = {}
 mapboxgl.accessToken = MapboxAccessToken
 
 const INITIAL_VIEW_STATE = {
-  longitude: 116.46,
-  latitude: 39.92,
+  longitude: 99.83347708389283,
+  latitude: 35.96759681947535,
   zoom: 4,
 }
 const MapPage = ({}: Props) => {
