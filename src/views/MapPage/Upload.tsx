@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Modal, Upload as AntdUpload, type UploadProps } from 'antd'
+import { Modal, Upload as AntdUpload, type UploadProps, message } from 'antd'
 import GeoJSONSVG from '@/assets/icons/geojson.svg'
 import { useAppDispatch } from '@/hooks'
 import { addMapFile, type Data } from '@/store/Reducer/mapReducer'
@@ -8,11 +8,12 @@ const { Dragger } = AntdUpload
 
 type Props = {
   show: boolean
+  mapFileList: Data[]
   onCancel: () => void
   onOk: () => void
 }
 
-const Upload = ({ show, onCancel, onOk }: Props) => {
+const Upload = ({ show, mapFileList, onCancel, onOk }: Props) => {
   const [geoFile, setGeoFile] = useState<Data>()
   const dispatch = useAppDispatch()
   const props: UploadProps = {
@@ -20,10 +21,18 @@ const Upload = ({ show, onCancel, onOk }: Props) => {
       const reader = new FileReader()
       reader.readAsText(file)
       reader.onload = () => {
-        setGeoFile({
-          file: JSON.stringify(reader.result),
-          name: file?.name?.replace('.geojson', ''),
-        })
+        const isExistName = mapFileList.some(
+          (item) => item.name === file?.name?.replace('.geojson', ''),
+        )
+        if (!isExistName) {
+          setGeoFile({
+            file: JSON.stringify(reader.result),
+            name: file?.name?.replace('.geojson', ''),
+            isShow: true,
+          })
+        } else {
+          message.error('已存在相同图层，请重新上传')
+        }
       }
       return false
     },
