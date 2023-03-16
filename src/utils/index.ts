@@ -27,4 +27,11 @@ const firstCharacterUpperCase = (word: string) => {
   return tmp.join('')
 }
 
-export { getElementById, setLocalStorage, getLocalStorage, firstCharacterUpperCase }
+/** 还原被 stringify 的对象 */
+const jsonParser = (blob: string) => {
+  let parsed = JSON.parse(blob)
+  if (typeof parsed === 'string') parsed = jsonParser(parsed)
+  return parsed
+}
+
+export { getElementById, setLocalStorage, getLocalStorage, firstCharacterUpperCase, jsonParser }

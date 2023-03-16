@@ -16,6 +16,15 @@ const MapPage = ({}: Props) => {
   const onOk = () => {
     setShow(false)
   }
+  const getLayers = () => {
+    return (
+      mapFileList
+        ?.filter((item) => item.isShow)
+        ?.map((item) => {
+          return item.file
+        }) || []
+    )
+  }
   return (
     <Layout>
       <Sider width={240} theme="light">
@@ -49,7 +58,7 @@ const MapPage = ({}: Props) => {
         </div>
       </Sider>
       <Content className="relative">
-        <Map />
+        <Map layers={getLayers()} />
       </Content>
       <Upload show={show} mapFileList={mapFileList} onCancel={() => setShow(false)} onOk={onOk} />
     </Layout>
