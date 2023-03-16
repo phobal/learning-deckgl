@@ -1,8 +1,9 @@
-import React, { useState, useCallback } from 'react'
-import Map, { Source, Layer } from 'react-map-gl'
+import React, { useState, useCallback, useMemo } from 'react'
+import Map from 'react-map-gl'
 import mapboxgl from 'mapbox-gl'
 import { debounce } from 'lodash'
 import DeckGL from '@deck.gl/react/typed'
+import { GeoJsonLayer } from '@deck.gl/layers/typed'
 import { jsonParser } from '@/utils'
 import Controls from './Controls'
 
@@ -14,9 +15,9 @@ type Props = {
 mapboxgl.accessToken = MapboxAccessToken
 
 const INITIAL_VIEW_STATE = {
-  longitude: 114.17092065590319,
-  latitude: 22.639811698157267,
-  zoom: 9.4,
+  longitude: 114.07131316936093,
+  latitude: 22.56833837847965,
+  zoom: 12,
 }
 const MapPage = ({ layers }: Props) => {
   const [viewState, setViewState] = useState(INITIAL_VIEW_STATE)
@@ -27,35 +28,46 @@ const MapPage = ({ layers }: Props) => {
   }, 200)
   const setViewStateFunc = useCallback(setViewState, [setViewState])
   const layerStyle = {
-    id: 'point',
-    type: 'circle',
-    paint: {
-      'circle-radius': 10,
-      'circle-color': '#3c71f6',
-    },
+    pickable: true,
+    stroked: false,
+    filled: true,
+    extruded: true,
+    pointType: 'circle',
+    getFillColor: [42, 99, 246, 200],
+    getPointRadius: 200,
+  }
+  const geojsonLayers = useMemo(() => {
+    return layers.map((layer, index) => {
+      // @ts-ignore
+      return new GeoJsonLayer({
+        id: `layer-${index}`,
+        data: jsonParser(layer),
+        ...layerStyle,
+      })
+    })
+  }, [layers])
+  // @ts-ignore
+  const getTooltip = ({ object }) => {
+    return object
+      ? {
+          text: object?.properties?.name,
+          style: {
+            backgroundColor: '#fff',
+            color: '#000',
+          },
+        }
+      : null
   }
   return (
     <DeckGL
       controller
       initialViewState={{ ...viewState }}
       style={{ width: '100%', height: '100%' }}
+      layers={geojsonLayers}
+      getTooltip={({ object }) => getTooltip({ object })}
       onViewStateChange={onViewStateChange}
     >
-      <Map attributionControl mapStyle="mapbox://styles/mapbox/light-v10">
-        {layers.map((layer, index) => (
-          <Source
-            key={`layer-${index}`}
-            id={`layer-${index}`}
-            type="geojson"
-            data={jsonParser(layer)}
-          >
-            {
-              // @ts-ignore
-              <Layer {...layerStyle} />
-            }
-          </Source>
-        ))}
-      </Map>
+      <Map attributionControl mapStyle="mapbox://styles/mapbox/light-v10" />
       <Controls viewState={viewState} setViewState={setViewStateFunc} />
     </DeckGL>
   )
