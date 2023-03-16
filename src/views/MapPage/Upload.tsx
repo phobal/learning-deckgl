@@ -17,6 +17,7 @@ const Upload = ({ show, mapFileList, onCancel, onOk }: Props) => {
   const [geoFile, setGeoFile] = useState<Data>()
   const dispatch = useAppDispatch()
   const props: UploadProps = {
+    accept: '.geojson',
     beforeUpload: (file) => {
       const reader = new FileReader()
       reader.readAsText(file)
