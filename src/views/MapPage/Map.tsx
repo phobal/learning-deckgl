@@ -17,14 +17,11 @@ type Props = {
 mapboxgl.accessToken = MapboxAccessToken
 
 const MapPage = ({ layers }: Props) => {
-  // const [viewState, setViewState] = useState(INITIAL_VIEW_STATE)
   const dispatch = useAppDispatch()
   const viewState = useAppSelector((state) => state.deckglViewStateReducer.deckglViewState)
   // 监听地图视图的变化，变化后从新 setViewState, 从而触发地图的重新渲染
   const onViewStateChange = debounce((viewStateProps) => {
-    // const { viewState } = viewStateProps
-    dispatch(setViewState(viewStateProps.viewState))
-    // setViewState(viewState)
+    dispatch(setViewState(viewStateProps?.viewState))
   }, 200)
   const layerStyle = {
     pickable: true,

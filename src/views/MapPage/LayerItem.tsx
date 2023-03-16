@@ -1,11 +1,14 @@
 import React from 'react'
 import { Tooltip, Popconfirm } from 'antd'
-import { useAppDispatch } from '@/hooks'
+import { center } from '@turf/turf'
+import { useAppDispatch, useAppSelector } from '@/hooks'
 import { editMapFile, deleteMapFile, type Data } from '@/store/Reducer/mapReducer'
+import { setViewState } from '@/store/Reducer/deckglViewStateReducer'
 import LayerIcon from '@/assets/icons/layer.svg'
 import OpenEyeIcon from '@/assets/icons/openEye.svg'
 import CloseEyeIcon from '@/assets/icons/closeEye.svg'
 import DeleteIcon from '@/assets/icons/delete.svg'
+import { jsonParser } from '@/utils'
 
 type Props = {
   /** 图层序号 */
@@ -15,6 +18,7 @@ type Props = {
 /** 图层列表 Item */
 const LayerItem = ({ index, name, isShow, file }: Props) => {
   const dispatch = useAppDispatch()
+  const viewState = useAppSelector((state) => state.deckglViewStateReducer.deckglViewState)
   const controlShow = () => {
     const data: Data = {
       name,
@@ -31,9 +35,20 @@ const LayerItem = ({ index, name, isShow, file }: Props) => {
   const onDelete = () => {
     dispatch(deleteMapFile(index))
   }
+  const flytoCenter = () => {
+    const geojson = jsonParser(file)
+    const [longitude, latitude] = center(geojson)?.geometry?.coordinates || []
+    dispatch(
+      setViewState({
+        ...viewState,
+        longitude,
+        latitude,
+      }),
+    )
+  }
   return (
     <div className="w-full h-32px hover:bg-[#ebecf0] flex items-center justify-between cursor-pointer">
-      <div className="flex pl-10px">
+      <div className="flex pl-10px" onClick={flytoCenter}>
         <LayerIcon />
         <span className="pl-4px">{name}</span>
       </div>
