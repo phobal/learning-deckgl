@@ -4,6 +4,7 @@ import { UploadOutlined } from '@ant-design/icons'
 import { useAppSelector } from '@/hooks'
 import Map from './Map'
 import Upload from './Upload'
+import LayerItem from './LayerItem'
 
 const { Sider, Content } = Layout
 
@@ -32,7 +33,15 @@ const MapPage = ({}: Props) => {
           </div>
           <div className="pt-40px">
             {mapFileList.length > 0 ? (
-              mapFileList?.map((file) => <div key={file.name}>{file.name}</div>)
+              mapFileList.map((file, index) => (
+                <LayerItem
+                  index={index}
+                  key={`${index}-${file.name}`}
+                  name={file.name}
+                  file={file.file}
+                  isShow={file.isShow}
+                />
+              ))
             ) : (
               <Empty description="还没有图层哦，请点击上方导入按钮添加图层" />
             )}
@@ -42,7 +51,7 @@ const MapPage = ({}: Props) => {
       <Content className="relative">
         <Map />
       </Content>
-      <Upload show={show} onCancel={() => setShow(false)} onOk={onOk} />
+      <Upload show={show} mapFileList={mapFileList} onCancel={() => setShow(false)} onOk={onOk} />
     </Layout>
   )
 }

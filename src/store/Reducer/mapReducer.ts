@@ -7,6 +7,7 @@ const STORAGE_KEY = 'mapFileList'
 type Data = {
   name: string
   file: string
+  isShow: boolean
 }
 type InitialState = {
   mapFileList: Data[]
