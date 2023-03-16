@@ -1,8 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { mapReducer } from './Reducer/mapReducer'
+import { deckglViewStateReducer } from './Reducer/deckglViewStateReducer'
 
 const store = configureStore({
-  reducer: { mapReducer },
+  reducer: { mapReducer, deckglViewStateReducer },
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

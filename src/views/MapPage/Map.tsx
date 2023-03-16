@@ -1,10 +1,12 @@
-import React, { useState, useCallback, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import Map from 'react-map-gl'
 import mapboxgl from 'mapbox-gl'
 import { debounce } from 'lodash'
 import DeckGL from '@deck.gl/react/typed'
 import { GeoJsonLayer } from '@deck.gl/layers/typed'
 import { jsonParser } from '@/utils'
+import { useAppSelector, useAppDispatch } from '@/hooks'
+import { setViewState } from '@/store/Reducer/deckglViewStateReducer'
 import Controls from './Controls'
 
 type Props = {
@@ -14,19 +16,16 @@ type Props = {
 // @ts-ignore
 mapboxgl.accessToken = MapboxAccessToken
 
-const INITIAL_VIEW_STATE = {
-  longitude: 114.07131316936093,
-  latitude: 22.56833837847965,
-  zoom: 12,
-}
 const MapPage = ({ layers }: Props) => {
-  const [viewState, setViewState] = useState(INITIAL_VIEW_STATE)
+  // const [viewState, setViewState] = useState(INITIAL_VIEW_STATE)
+  const dispatch = useAppDispatch()
+  const viewState = useAppSelector((state) => state.deckglViewStateReducer.deckglViewState)
   // 监听地图视图的变化，变化后从新 setViewState, 从而触发地图的重新渲染
   const onViewStateChange = debounce((viewStateProps) => {
-    const { viewState } = viewStateProps
-    setViewState(viewState)
+    // const { viewState } = viewStateProps
+    dispatch(setViewState(viewStateProps.viewState))
+    // setViewState(viewState)
   }, 200)
-  const setViewStateFunc = useCallback(setViewState, [setViewState])
   const layerStyle = {
     pickable: true,
     stroked: false,
@@ -68,7 +67,7 @@ const MapPage = ({ layers }: Props) => {
       onViewStateChange={onViewStateChange}
     >
       <Map attributionControl mapStyle="mapbox://styles/mapbox/light-v10" />
-      <Controls viewState={viewState} setViewState={setViewStateFunc} />
+      <Controls viewState={viewState} />
     </DeckGL>
   )
 }
