@@ -65,4 +65,4 @@ const MapPage = ({}: Props) => {
   )
 }
 
-export default MapPage
+export default React.memo(MapPage)

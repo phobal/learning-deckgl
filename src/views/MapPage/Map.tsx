@@ -63,10 +63,10 @@ const MapPage = ({ layers }: Props) => {
       getTooltip={({ object }) => getTooltip({ object })}
       onViewStateChange={onViewStateChange}
     >
-      <Map attributionControl mapStyle="mapbox://styles/mapbox/light-v10" />
+      <Map mapStyle="mapbox://styles/mapbox/light-v10" />
       <Controls viewState={viewState} />
     </DeckGL>
   )
 }
 
-export default MapPage
+export default React.memo(MapPage)

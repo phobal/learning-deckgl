@@ -24,7 +24,7 @@ const Controls = ({ viewState }: Props) => {
   /** 放大，实际上是控制 viewState, 缩小同理 */
   const zoomOut = () => {
     // 地图存在最大缩放级别，不能超过最大缩放级别，通常为 21
-    const nextLevel = Math.min(viewState.zoom + 1, viewState.maxZoom)
+    const nextLevel = Math.min(viewState.zoom + 1, viewState.maxZoom || 20)
     if (nextLevel <= 20) {
       dispatch(
         setViewState({
