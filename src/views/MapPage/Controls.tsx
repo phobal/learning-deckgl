@@ -23,22 +23,28 @@ const Controls = ({ viewState }: Props) => {
   const dispatch = useAppDispatch()
   /** 放大，实际上是控制 viewState, 缩小同理 */
   const zoomOut = () => {
-    dispatch(
-      setViewState({
-        ...viewState,
-        // 地图存在最大缩放级别，不能超过最大缩放级别，通常为 21
-        zoom: Math.min(viewState.zoom + 1, viewState.maxZoom),
-      }),
-    )
+    // 地图存在最大缩放级别，不能超过最大缩放级别，通常为 21
+    const nextLevel = Math.min(viewState.zoom + 1, viewState.maxZoom)
+    if (nextLevel <= 20) {
+      dispatch(
+        setViewState({
+          ...viewState,
+          zoom: nextLevel,
+        }),
+      )
+    }
   }
   const zoomIn = () => {
-    dispatch(
-      setViewState({
-        ...viewState,
-        // 地图存在最小缩放级别，不能小于最小缩放级别，通常为 1
-        zoom: Math.max(viewState.zoom - 1, viewState.minZoom),
-      }),
-    )
+    // 地图存在最小缩放级别，不能小于最小缩放级别，通常为 1
+    const nextLevel = Math.max(viewState.zoom - 1, viewState.minZoom || 0)
+    if (nextLevel > 0) {
+      dispatch(
+        setViewState({
+          ...viewState,
+          zoom: nextLevel,
+        }),
+      )
+    }
   }
   return (
     <div className="absolute bottom-20px right-20px ease-in-out duration-300 right z-2 w-30px">
