@@ -32,7 +32,7 @@ pnpm build
 - UI Framework, [Ant Design](https://ant.design/)
 - Map, [deck.gl](https://deck.gl/) and [mapbox](https://www.mapbox.com/)
 - State Management, [redux-toolkit](https://redux-toolkit.js.org/)
-- CSS, [Tailwind CSS](https://tailwindcss.com/)
+- CSS, [windicss](https://windicss.org/)
 - Lint, [ESLint](https://eslint.org/) and [Prettier](https://prettier.io/)
 
 ## Reference
