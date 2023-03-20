@@ -26,7 +26,7 @@ const MapPage = ({}: Props) => {
     )
   }
   return (
-    <Layout>
+    <Layout className="overflow-hidden">
       <Sider width={240} theme="light">
         <div className="pt-40px pl-6px pr-6px relative">
           <div className="h-56px w-full flex justify-between items-baseline">
